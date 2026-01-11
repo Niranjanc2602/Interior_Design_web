@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fly Home Interior - Interior Design Bengaluru</title>
+    <style>
+        /* ENHANCED TRANSPARENT TOPBAR */
+        .topbar {
+            position: fixed; top: 0; left: 0; right: 0; 
+            background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(76,175,80,0.2);
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1rem 5%; z-index: 1000; transition: all 0.4s ease;
+        }
+        .topbar.scrolled { background: rgba(255,255,255,0.98); box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .logo { 
+            width: 60px; height: 60px; border-radius: 50%; 
+            object-fit: cover; border: 3px solid rgba(76,175,80,0.3); 
+            box-shadow: 0 4px 15px rgba(76,175,80,0.2); transition: transform 0.3s;
+        }
+        .logo:hover { transform: scale(1.05); }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { 
+            color: #1E3A8A; text-decoration: none; font-weight: 600; 
+            font-size: 0.95rem; position: relative; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #4CAF50; }
+        .nav-links a::after { 
+            content: ''; position: absolute; bottom: -5px; left: 0; 
+            width: 0; height: 2px; background: #4CAF50; transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: #1E3A8A; }
+
+        /* ENHANCED ANIMATED HERO */
+        .hero {
+            height: 100vh; 
+            background: url('hero-bg.png');
+            background-size: cover; background-position: center; 
+            background-attachment: fixed;
+            display: flex; align-items: center; justify-content: center; 
+            text-align: center; color: #1E3A8A; padding-top: 90px; overflow: hidden;
+            position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 1; }
+        }
+        .hero-content { 
+            max-width: 700px; padding: 0 20px; animation: fadeInUp 1.2s ease-out;
+            position: relative; z-index: 2;
+        }
+        .hero-content h2 { 
+            font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; 
+            margin: 0 0 1.5rem 0; opacity: 0; animation: popInUp 0.8s ease-out 0.3s forwards;
+            background: linear-gradient(135deg, #f1f2f3, #f7f7f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero-content p { 
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem); margin: 0 0 3rem 0; 
+            opacity: 0; animation: popInUp 0.8s ease-out 0.6s forwards; font-weight: 300;
+            color: #fffdfd;
+        }
+        .cta-btn { 
+            background: linear-gradient(135deg, #4CAF50, #45a049); color: white; 
+            padding: 1.2rem 3.5rem; font-size: 1.3rem; font-weight: 700;
+            border: none; border-radius: 50px; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-decoration: none; display: inline-block; position: relative; overflow: hidden;
+            opacity: 0; animation: popInUp 0.8s ease-out 0.9s forwards;
+            box-shadow: 0 10px 30px rgba(76,175,80,0.3);
+        }
+        .cta-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); 
+            transition: left 0.6s;
+        }
+        .cta-btn:hover::before { left: 100%; }
+        .cta-btn:hover { 
+            transform: translateY(-3px) scale(1.02); 
+            box-shadow: 0 20px 40px rgba(76,175,80,0.4);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popInUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .topbar { padding: 0.8rem 4%; }
+            .logo { width: 50px; height: 50px; }
+            .nav-links { 
+                display: none; position: absolute; top: 100%; left: 0; right: 0; 
+                background: rgba(255,255,255,0.98); flex-direction: column; padding: 1.5rem; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+            .hero { height: 95vh; background-attachment: scroll; }
+            .cta-btn { padding: 1rem 2.5rem; font-size: 1.1rem; }
+        }
+
+        /* PROCESS SECTION WITH ANIMATED CARDS */
+        .process-container {
+            max-width: 900px; margin: 0 auto; position: relative;
+        }
+        .process-card {
+            display: none; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden; transition: all 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+            border: 1px solid rgba(76,175,80,0.2);
+        }
+        .process-card.active {
+            display: flex; animation: cardSlideIn 0.6s ease-out;
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .card-image {
+            flex: 0 0 350px; position: relative; overflow: hidden;
+        }
+        .card-image img {
+            width: 100%; height: 300px; object-fit: cover; transition: transform 0.5s;
+        }
+        .process-card:hover .card-image img { transform: scale(1.05); }
+        .step-number {
+            position: absolute; top: 20px; right: 20px; background: #4CAF50;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-weight: bold;
+            font-size: 1.3rem; box-shadow: 0 5px 15px rgba(76,175,80,0.4);
+        }
+        .card-content {
+            flex: 1; padding: 3rem; display: flex; flex-direction: column;
+        }
+        .card-content h3 {
+            color: #1E3A8A; font-size: 2rem; margin: 0 0 1rem 0; font-weight: 700;
+        }
+        .card-content p {
+            color: #666; line-height: 1.7; margin-bottom: 2rem; flex-grow: 1;
+        }
+        .nav-buttons {
+            display: flex; gap: 1rem; justify-content: flex-end;
+        }
+        .nav-btn {
+            background: #4CAF50; color: white; border: none; padding: 0.8rem 1.5rem;
+            border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-btn:hover:not(.disabled) {
+            background: #45a049; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(76,175,80,0.3);
+        }
+        .nav-btn.disabled {
+            background: #ccc; cursor: not-allowed; transform: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .process-card { flex-direction: column; }
+            .card-image { flex: none; height: 250px; }
+            .card-content { padding: 2rem; }
+            .nav-buttons { justify-content: center; }
+        }
+
+
+        /* wood and laminate tables */
+        .woods-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+        }
+        .wood-card {
+            position: relative; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.4s ease;
+            background: white;
+        }
+        .wood-card:hover {
+            transform: translateY(-15px); box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+        .wood-image {
+            position: relative; height: 350px; overflow: hidden; cursor: pointer;
+        }
+        .wood-image img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+        }
+        .wood-card:hover .wood-image img {
+            transform: scale(1.1);
+        }
+        .wood-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(30,58,138,0.9), rgba(76,175,80,0.8));
+            color: white; padding: 2rem; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            opacity: 0; transition: opacity 0.4s ease; transform: translateY(20px);
+        }
+        .wood-card:hover .wood-overlay {
+            opacity: 1; transform: translateY(0);
+        }
+        .wood-overlay h3 {
+            font-size: 2rem; font-weight: 700; margin: 0 0 1rem 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .price-tag {
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem; border-radius: 50px; font-size: 1.3rem;
+            font-weight: 700; margin-bottom: 1.5rem; border: 2px solid rgba(255,255,255,0.3);
+        }
+        .features {
+            list-style: none; padding: 0; margin: 0; font-size: 1.1rem;
+        }
+        .features li {
+            margin: 0.3rem 0; opacity: 0; transform: translateX(-20px);
+            animation: slideIn 0.6s ease forwards;
+        }
+        .wood-card:hover .features li:nth-child(1) { animation-delay: 0.1s; }
+        .wood-card:hover .features li:nth-child(2) { animation-delay: 0.2s; }
+        .wood-card:hover .features li:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 768px) {
+            .woods-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .wood-image { height: 280px; }
+            .wood-overlay h3 { font-size: 1.5rem; }
+        }
+
+        .laminates-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 20px;
+        }
+        .laminate-card {
+            position: relative; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.4s ease;
+            background: white;
+        }
+        .laminate-card:hover {
+            transform: translateY(-15px); box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+        }
+        .laminate-image {
+            position: relative; height: 350px; overflow: hidden; cursor: pointer;
+        }
+        .laminate-image img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+        }
+        .laminate-card:hover .laminate-image img {
+            transform: scale(1.1);
+        }
+        .laminate-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(30,58,138,0.9), rgba(76,175,80,0.8));
+            color: white; padding: 2rem; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            opacity: 0; transition: opacity 0.4s ease; transform: translateY(20px);
+        }
+        .laminate-card:hover .laminate-overlay {
+            opacity: 1; transform: translateY(0);
+        }
+        .laminate-overlay h3 {
+            font-size: 2rem; font-weight: 700; margin: 0 0 1rem 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .price-tag {
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+            padding: 0.8rem 1.5rem; border-radius: 50px; font-size: 1.3rem;
+            font-weight: 700; margin-bottom: 1.5rem; border: 2px solid rgba(255,255,255,0.3);
+        }
+        .laminate-overlay .features {
+            list-style: none; padding: 0; margin: 0; font-size: 1.1rem;
+        }
+        .laminate-overlay .features li {
+            margin: 0.3rem 0; opacity: 0; transform: translateX(-20px);
+            animation: slideIn 0.6s ease forwards;
+        }
+        .laminate-card:hover .laminate-overlay .features li:nth-child(1) { animation-delay: 0.1s; }
+        .laminate-card:hover .laminate-overlay .features li:nth-child(2) { animation-delay: 0.2s; }
+        .laminate-card:hover .laminate-overlay .features li:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 768px) {
+            .laminates-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .laminate-image { height: 280px; }
+            .laminate-overlay h3 { font-size: 1.5rem; }
+        }
+
+        /* Calculator */
+        .calculator-container {
+            max-width: 900px; margin: 0 auto; padding: 0 20px;
+        }
+        .calc-grid {
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border-radius: 25px; padding: 3rem; box-shadow: 0 25px 70px rgba(0,0,0,0.1);
+            border: 1px solid rgba(76,175,80,0.2); margin-bottom: 2rem;
+        }
+        .input-group {
+            margin-bottom: 2rem;
+        }
+        .input-group label {
+            display: block; color: #1E3A8A; font-weight: 600; margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .calc-input, .calc-select {
+            width: 100%; padding: 1rem 1.5rem; border: 2px solid rgba(76,175,80,0.2);
+            border-radius: 15px; font-size: 1.2rem; transition: all 0.3s ease;
+            background: rgba(255,255,255,0.9); font-weight: 500;
+        }
+        .calc-input:focus, .calc-select:focus {
+            outline: none; border-color: #4CAF50; box-shadow: 0 0 0 4px rgba(76,175,80,0.1);
+            transform: translateY(-2px);
+        }
+        .full-width { grid-column: 1 / -1; }
+        .checkbox-group {
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .checkbox-label {
+            display: flex; align-items: center; gap: 0.8rem; cursor: pointer;
+            font-size: 1.1rem; color: #333; padding: 0.8rem; border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .checkbox-label:hover { background: rgba(76,175,80,0.05); }
+        .checkbox-label input:checked + span { color: #4CAF50; font-weight: 600; }
+
+        .calc-results {
+            background: linear-gradient(135deg, rgba(30,58,138,0.05), rgba(76,175,80,0.05));
+            border-radius: 20px; padding: 2.5rem; text-align: center;
+        }
+        .result-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 0; font-size: 1.3rem; border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .result-item:last-child { border-bottom: none; }
+        .result-item span:first-child { color: #666; font-weight: 500; }
+        .result-item span:last-child { font-weight: 700; font-size: 1.4rem; }
+        .result-item.total {
+            margin-top: 1rem; padding-top: 1.5rem; border-top: 3px solid #4CAF50;
+        }
+        #total-result {
+            color: #4CAF50; font-size: 2rem; text-shadow: 0 2px 10px rgba(76,175,80,0.2);
+        }
+        .get-quote-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049); color: white;
+            border: none; padding: 1.5rem 3rem; border-radius: 50px; font-size: 1.3rem;
+            font-weight: 700; cursor: pointer; margin-top: 2rem; width: 100%;
+            transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+            box-shadow: 0 15px 40px rgba(76,175,80,0.3);
+        }
+        .get-quote-btn:hover {
+            transform: translateY(-5px); box-shadow: 0 25px 50px rgba(76,175,80,0.4);
+        }
+
+        @media (min-width: 768px) {
+            .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        }
+        @media (max-width: 768px) {
+            .calc-grid { padding: 2rem; }
+            .calc-input, .calc-select { padding: 1rem; font-size: 1.1rem; }
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 100px 20px;
+        }
+        .contact-container {
+            max-width: 1200px; margin: 0 auto;
+        }
+        .contact-info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem; margin: 4rem 0;
+        }
+        .contact-card {
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+            border-radius: 25px; padding: 2.5rem; text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); border: 1px solid rgba(76,175,80,0.2);
+            transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); position: relative; overflow: hidden;
+        }
+        .contact-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+            background: linear-gradient(90deg, #1E3A8A, #4CAF50);
+        }
+        .contact-card:hover {
+            transform: translateY(-10px); box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+        .phone-card::before { background: linear-gradient(90deg, #4CAF50, #45a049); }
+        .email-card::before { background: linear-gradient(90deg, #1E3A8A, #2563eb); }
+        .whatsapp-card::before { background: linear-gradient(90deg, #25D366, #128C7E); }
+        .address-card::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        .contact-icon {
+            font-size: 4rem; margin-bottom: 1.5rem; display: block;
+        }
+        .contact-details h3 {
+            color: #1E3A8A; font-size: 1.8rem; margin: 0 0 1rem 0; font-weight: 700;
+        }
+        .contact-details p {
+            color: #666; font-size: 1.2rem; margin: 0 0 2rem 0; line-height: 1.6;
+        }
+        .contact-btn {
+            display: inline-block; background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white; padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
+            font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(76,175,80,0.3);
+        }
+        .contact-btn:hover {
+            transform: translateY(-3px); box-shadow: 0 15px 40px rgba(76,175,80,0.4); color: white !important;
+        }
+        .whatsapp-btn { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .map-btn { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .map-container {
+            max-width: 1000px; margin: 4rem auto; border-radius: 25px; overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.1); border: 1px solid rgba(76,175,80,0.2);
+        }
+        .quick-links {
+            display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 3rem;
+        }
+        .quick-link {
+            background: rgba(30,58,138,0.1); color: #1E3A8A; padding: 1rem 2rem;
+            border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s;
+            border: 2px solid rgba(30,58,138,0.2);
+        }
+        .quick-link:hover {
+            background: #1E3A8A; color: white; transform: translateY(-3px);
+        }
+        .whatsapp-quick {
+            background: rgba(37,211,102,0.1); color: #25D366; border-color: rgba(37,211,102,0.3);
+        }
+        .whatsapp-quick:hover {
+            background: #25D366; color: white;
+        }
+
+        @media (max-width: 768px) {
+            .contact-info-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .contact-card { padding: 2rem; }
+            .quick-links { flex-direction: column; align-items: center; }
+        }
+
+
+    </style>
+</head>
+<!-- DELETE all script tags from <head> and put this BEFORE </body> -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Smooth scroll + nav toggle + scroll effects
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            const nav = document.querySelector('.nav-links');
+            if (nav.classList.contains('active')) nav.classList.remove('active');
+        });
+    });
+
+    window.toggleNav = () => document.querySelector('.nav-links').classList.toggle('active');
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        document.querySelector('.topbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // PROCESS CARDS
+    function initProcessCards() {
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.replaceWith(btn.cloneNode(true)));
+        document.querySelectorAll('.nav-btn.next').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const currentCard = this.closest('.process-card');
+                const currentStep = parseInt(currentCard.dataset.step);
+                if (currentStep < 4) {
+                    currentCard.classList.remove('active');
+                    document.querySelector(`[data-step="${currentStep + 1}"]`).classList.add('active');
+                }
+            });
+        });
+        document.querySelectorAll('.nav-btn.prev').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const currentCard = this.closest('.process-card');
+                const currentStep = parseInt(currentCard.dataset.step);
+                if (currentStep > 1) {
+                    currentCard.classList.remove('active');
+                    document.querySelector(`[data-step="${currentStep - 1}"]`).classList.add('active');
+                }
+            });
+        });
+    }
+    initProcessCards();
+
+    // 🔥 FIXED CALCULATOR
+    function updateCalculator() {
+        const length = parseFloat(document.getElementById('length').value) || 0;
+        const width = parseFloat(document.getElementById('width').value) || 0;
+        const woodPrice = parseFloat(document.getElementById('woodType').value) || 0;
+        const lamPrice = parseFloat(document.getElementById('lamType').value) || 0;
+        const labor = document.getElementById('labor').checked ? 150 : 0;
+        const fitting = document.getElementById('fitting').checked ? 100 : 0;
+        const design = document.getElementById('design').checked ? 25000 : 0;
+        
+        const area = length * width;
+        const woodCost = area * woodPrice;
+        const lamCost = area * lamPrice;
+        const laborCost = area * labor;
+        const fittingCost = area * fitting;
+        const total = woodCost + lamCost + laborCost + fittingCost + design;
+        
+        document.getElementById('area-result').textContent = `${area.toFixed(1)} sq ft`;
+        document.getElementById('wood-result').textContent = `₹${woodCost.toLocaleString('en-IN')}`;
+        document.getElementById('lam-result').textContent = `₹${lamCost.toLocaleString('en-IN')}`;
+        document.getElementById('total-result').textContent = `₹${total.toLocaleString('en-IN')}`;
+    }
+
+    // FIXED EVENT LISTENERS
+    document.getElementById('length').addEventListener('input', updateCalculator);
+    document.getElementById('width').addEventListener('input', updateCalculator);
+    document.getElementById('woodType').addEventListener('change', updateCalculator);
+    document.getElementById('lamType').addEventListener('change', updateCalculator);
+    document.getElementById('labor').addEventListener('change', updateCalculator);
+    document.getElementById('fitting').addEventListener('change', updateCalculator);
+    document.getElementById('design').addEventListener('change', updateCalculator);
+
+    // Quote button
+    window.scrollToContact = () => document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+    
+    // Initialize
+    updateCalculator();
+});
+</script>
+
+
+<body>
+    <!-- ADD THIS NEW TOPBAR (replaces old header + nav) -->
+    <div class="topbar">
+        <img src="1000090199.jpg" alt="Fly Home Interior Logo" class="logo">
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#process">Process</a>
+            <a href="#woods">Woods</a>
+            <a href="#laminates">Laminates</a>
+            <a href="#calculator">Calculator</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="hamburger" onclick="toggleNav()">☰</div>
+    </div>
+
+    <!-- ADD THIS NEW HERO SECTION (replaces old hero) -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Transform Your Bengaluru Home</h2>
+            <p>Premium Interior Design with Teak Wood & Greenlam Laminates</p>
+            <a href="#contact" class="cta-btn">Get Free Quote Today</a>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="section">
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Our Premium Design Process</h2>
+        <div class="process-container">
+            <div class="process-card active" data-step="1">
+                <div class="card-image">
+                    <img src="p1.png" alt="Select Products" loading="lazy">
+                    <div class="step-number">1</div>
+                </div>
+                <div class="card-content">
+                    <h3>Select Products</h3>
+                    <p>Choose from premium woods, laminates, and fittings based on your vision, style and budget. We guide you through 50+ material options.</p>
+                    <div class="nav-buttons">
+                        <button class="nav-btn prev disabled">←</button>
+                        <button class="nav-btn next">Next →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-card" data-step="2">
+                <div class="card-image">
+                    <img src="p2.png" alt="Pasting & Cutting" loading="lazy">
+                    <div class="step-number">2</div>
+                </div>
+                <div class="card-content">
+                    <h3>Pasting & Cutting</h3>
+                    <p>Precision CNC cutting and edge banding for perfect fit. Zero measurements errors guaranteed with digital templating.</p>
+                    <div class="nav-buttons">
+                        <button class="nav-btn prev">← Prev</button>
+                        <button class="nav-btn next">Next →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-card" data-step="3">
+                <div class="card-image">
+                    <img src="p2.png" alt="3D Design" loading="lazy">
+                    <div class="step-number">3</div>
+                </div>
+                <div class="card-content">
+                    <h3>3D Design Approval</h3>
+                    <p>Photorealistic 3D walkthroughs with material renders. Unlimited revisions until perfect vision match.</p>
+                    <div class="nav-buttons">
+                        <button class="nav-btn prev">← Prev</button>
+                        <button class="nav-btn next">Next →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="process-card" data-step="4">
+                <div class="card-image">
+                    <img src="p4.jpg" alt="Professional Fitting" loading="lazy">
+                    <div class="step-number">4</div>
+                </div>
+                <div class="card-content">
+                    <h3>Expert Fitting</h3>
+                    <p>5-year warranty installation by certified craftsmen. Dust-free fitting with same-day cleanup service.</p>
+                    <div class="nav-buttons">
+                        <button class="nav-btn prev">← Prev</button>
+                        <button class="nav-btn next disabled">✓ Complete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Woods and Laminates -->
+    <section id="woods" class="section">
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Premium Woods (₹/sq ft)</h2>
+        <div class="woods-grid">
+            <div class="wood-card" data-details='{
+                "price": "₹2500", 
+                "features": "Durable • Premium Finish • Termite Proof",
+                "best_for": "Kitchens, Living Rooms, Luxury Projects"
+            }'>
+                <div class="wood-image">
+                    <img src="w1.jpg" alt="Teak Wood" loading="lazy">
+                    <div class="wood-overlay">
+                        <h3>Teak Wood</h3>
+                        <div class="price-tag">₹2500/sq ft</div>
+                        <ul class="features">
+                            <li>• King of woods</li>
+                            <li>• Golden brown</li>
+                            <li>• 50+ years life</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wood-card" data-details='{
+                "price": "₹1800", 
+                "features": "Rich Texture • Strong • Natural Polish",
+                "best_for": "Bedrooms, Dining, Traditional Homes"
+            }'>
+                <div class="wood-image">
+                    <img src="w2.jpg" alt="Sheesham Wood" loading="lazy">
+                    <div class="wood-overlay">
+                        <h3>Sheesham Wood</h3>
+                        <div class="price-tag">₹1800/sq ft</div>
+                        <ul class="features">
+                            <li>• Indian Rosewood</li>
+                            <li>• Dark grain pattern</li>
+                            <li>• 30+ years life</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wood-card" data-details='{
+                "price": "₹1200", 
+                "features": "Water Resistant • Strong • Budget Friendly",
+                "best_for": "Bathrooms, Kitchens, Humid Areas"
+            }'>
+                <div class="wood-image">
+                    <img src="w1.jpg" alt="Marine Plywood" loading="lazy">
+                    <div class="wood-overlay">
+                        <h3>Marine Plywood</h3>
+                        <div class="price-tag">₹1200/sq ft</div>
+                        <ul class="features">
+                            <li>• Boiling waterproof</li>
+                            <li>• High density</li>
+                            <li>• IS:710 certified</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wood-card" data-details='{
+                "price": "₹800", 
+                "features": "Smooth Finish • Affordable • Easy to Work",
+                "best_for": "Wardrobes, Modern Minimalist"
+            }'>
+                <div class="wood-image">
+                    <img src="w2.jpg" alt="MDF Board" loading="lazy">
+                    <div class="wood-overlay">
+                        <h3>MDF Board</h3>
+                        <div class="price-tag">₹800/sq ft</div>
+                        <ul class="features">
+                            <li>• Perfectly smooth</li>
+                            <li>• No grain marks</li>
+                            <li>• Paint friendly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="laminates" class="section">
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Premium Laminates (₹/sq ft)</h2>
+        <div class="laminates-grid">
+            <div class="laminate-card" data-details='{
+                "price": "₹250", 
+                "features": "Anti-scratch • Eco-friendly • UV Resistant",
+                "best_for": "Kitchens, Bathrooms, High Traffic Areas"
+            }'>
+                <div class="laminate-image">
+                    <img src="l1.jpg" alt="Greenlam Laminate" loading="lazy">
+                    <div class="laminate-overlay">
+                        <h3>Greenlam</h3>
+                        <div class="price-tag">₹250/sq ft</div>
+                        <ul class="features">
+                            <li>• Anti-bacterial</li>
+                            <li>• Scratch resistant</li>
+                            <li>• 10-year warranty</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="laminate-card" data-details='{
+                "price": "₹300", 
+                "features": "High Gloss • Premium • Fire Resistant",
+                "best_for": "Living Rooms, Showrooms, Luxury Homes"
+            }'>
+                <div class="laminate-image">
+                    <img src="l2.jpg" alt="Century Laminates" loading="lazy">
+                    <div class="laminate-overlay">
+                        <h3>Century Laminates</h3>
+                        <div class="price-tag">₹300/sq ft</div>
+                        <ul class="features">
+                            <li>• Mirror finish</li>
+                            <li>• High gloss</li>
+                            <li>• Premium brand</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="laminate-card" data-details='{
+                "price": "₹220", 
+                "features": "Matte Finish • Durable • Heat Resistant",
+                "best_for": "Bedrooms, Wardrobes, Modern Homes"
+            }'>
+                <div class="laminate-image">
+                    <img src="l1.jpg" alt="Aica Laminate" loading="lazy">
+                    <div class="laminate-overlay">
+                        <h3>Aica Laminate</h3>
+                        <div class="price-tag">₹220/sq ft</div>
+                        <ul class="features">
+                            <li>• Japanese quality</li>
+                            <li>• Matte texture</li>
+                            <li>• Heat resistant</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="laminate-card" data-details='{
+                "price": "₹180", 
+                "features": "Boiling Waterproof • Budget • Reliable",
+                "best_for": "Kitchens, Bathrooms, Budget Projects"
+            }'>
+                <div class="laminate-image">
+                    <img src="l2.jpg" alt="Boiling Waterproof" loading="lazy">
+                    <div class="laminate-overlay">
+                        <h3>Boiling Waterproof</h3>
+                        <div class="price-tag">₹180/sq ft</div>
+                        <ul class="features">
+                            <li>• BWP grade</li>
+                            <li>• Moisture proof</li>
+                            <li>• Budget friendly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cost Calculator -->
+    <section id="calculator" class="section">
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 1rem; font-size: 2.5rem;">Instant Cost Calculator</h2>
+        <p style="text-align: center; color: #666; font-size: 1.2rem; margin-bottom: 3rem;">Enter your room dimensions to get accurate pricing</p>
+        
+        <div class="calculator-container">
+            <div class="calc-grid">
+                <!-- Area Inputs -->
+                <div class="input-group">
+                    <label>📏 Length (ft)</label>
+                    <input type="number" id="length" class="calc-input" min="0" step="0.1" value="10">
+                </div>
+                <div class="input-group">
+                    <label>📐 Width (ft)</label>
+                    <input type="number" id="width" class="calc-input" min="0" step="0.1" value="12">
+                </div>
+                
+                <!-- Material Selection -->
+                <div class="input-group full-width">
+                    <label>🌳 Wood Type</label>
+                    <select id="woodType" class="calc-select">
+                        <option value="2500">Teak Wood - ₹2500/sqft</option>
+                        <option value="1800" selected>Sheesham - ₹1800/sqft</option>
+                        <option value="1200">Marine Plywood - ₹1200/sqft</option>
+                        <option value="800">MDF - ₹800/sqft</option>
+                    </select>
+                </div>
+                <div class="input-group full-width">
+                    <label>🎨 Laminate Type</label>
+                    <select id="lamType" class="calc-select">
+                        <option value="250">Greenlam - ₹250/sqft</option>
+                        <option value="300">Century - ₹300/sqft</option>
+                        <option value="220" selected>Aica - ₹220/sqft</option>
+                        <option value="180">Boiling Waterproof - ₹180/sqft</option>
+                    </select>
+                </div>
+                
+                <!-- Additional Options -->
+                <div class="input-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="labor" checked> 👷 Labor (₹150/sqft)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="fitting"> 🔧 Fitting Hardware (₹100/sqft)
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="design"> 🎨 3D Design (₹25,000 fixed)
+                    </label>
+                </div>
+            </div>
+            
+            <div class="calc-results">
+                <div class="result-item">
+                    <span>📐 Area:</span>
+                    <span id="area-result">0 sq ft</span>
+                </div>
+                <div class="result-item">
+                    <span>🌳 Wood Cost:</span>
+                    <span id="wood-result">₹0</span>
+                </div>
+                <div class="result-item">
+                    <span>🎨 Laminate Cost:</span>
+                    <span id="lam-result">₹0</span>
+                </div>
+                <div class="result-item total">
+                    <span>💰 TOTAL ESTIMATE:</span>
+                    <span id="total-result">₹0</span>
+                </div>
+                <button class="get-quote-btn" onclick="scrollToContact()">Get Detailed Quote →</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2 style="color: #1E3A8A; font-size: 2.8rem; margin-bottom: 1rem;">Let's Create Your Dream Home</h2>
+                <p style="font-size: 1.3rem; color: #666; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                    Ready for your premium interior transformation? Call us for free consultation and site visit.
+                </p>
+            </div>
+
+            <div class="contact-info-grid">
+                <!-- Phone -->
+                <div class="contact-card phone-card">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <h3>Call Anytime</h3>
+                        <p>+91 98765 43210</p>
+                        <a href="tel:+919876543210" class="contact-btn">Call Now</a>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="contact-card email-card">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <h3>Email Us</h3>
+                        <p>info@flyhomeinterior.com</p>
+                        <a href="mailto:info@flyhomeinterior.com" class="contact-btn">Send Email</a>
+                    </div>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="contact-card whatsapp-card">
+                    <div class="contact-icon">💬</div>
+                    <div class="contact-details">
+                        <h3>WhatsApp</h3>
+                        <p>+91 98765 43210</p>
+                        <a href="https://wa.me/919876543210" target="_blank" class="contact-btn whatsapp-btn">Chat Now</a>
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div class="contact-card address-card">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h3>Visit Us</h3>
+                        <p>#123, 5th Cross, Jayanagar<br>Bengaluru, Karnataka 560011</p>
+                        <a href="https://maps.app.goo.gl/your-map-link" target="_blank" class="contact-btn map-btn">View on Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Maps Embed -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15515.439424414614!2d77.59321431526474!3d12.92566659063215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14e9e4c8c8b7%3A0x8d2d8c8d8c8d8c8d!2sJayanagar%2C%20Bengaluru!5e0!3m2!1sen!2sin!4v1700000000000" 
+                    width="100%" height="400" style="border:0; border-radius: 20px;" 
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="quick-links">
+                <a href="tel:+919876543210" class="quick-link">📱 Instant Call</a>
+                <a href="https://wa.me/919876543210" class="quick-link whatsapp-quick">💬 WhatsApp Quote</a>
+                <a href="mailto:info@flyhomeinterior.com" class="quick-link">📧 Email Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: linear-gradient(135deg, #1E3A8A, #4CAF50); color: white; text-align: center; padding: 3rem 20px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <p style="margin: 0 0 1rem 0; font-size: 1.1rem;">
+                © 2026 Fly Home Interior | Premium Interior Design Bengaluru
+            </p>
+            <p style="margin: 0; opacity: 0.9;">
+                📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 
+                📍 #123, Jayanagar, Bengaluru, Karnataka 560011
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function calculate() {
+            const length = parseFloat(document.getElementById('length').value) || 0;
+            const width = parseFloat(document.getElementById('width').value) || 0;
+            const woodPrice = parseFloat(document.getElementById('woodPrice').value) || 0;
+            const lamPrice = parseFloat(document.getElementById('lamPrice').value) || 0;
+            const area = length * width;
+            const total = (area * woodPrice) + (area * lamPrice);
+            document.getElementById('calc-result').innerHTML = `Area: ${area.toFixed(2)} sq ft | Approx Cost: ₹${total.toFixed(0)} (excl. labor)`;
+        }
+    </script>
+</body>
+</html>
