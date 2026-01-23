@@ -32,6 +32,19 @@
         .nav-links a:hover::after { width: 100%; }
         .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: #1E3A8A; }
 
+        /* LANGUAGE SELECTOR */
+        .language-selector {
+            padding: 0.6rem 1.2rem; border: 2px solid rgba(76,175,80,0.3); border-radius: 25px;
+            background: rgba(255,255,255,0.9); color: #1E3A8A; font-weight: 600; cursor: pointer;
+            font-size: 1rem; transition: all 0.3s ease;
+        }
+        .language-selector:hover { border-color: #4CAF50; box-shadow: 0 4px 12px rgba(76,175,80,0.2); }
+        .language-selector:focus { outline: none; border-color: #4CAF50; }
+
+        @media (max-width: 768px) {
+            .language-selector { padding: 0.5rem 1rem; font-size: 0.9rem; }
+        }
+
         /* ENHANCED ANIMATED HERO */
         .hero {
             height: 100vh; 
@@ -444,90 +457,469 @@
 
     </style>
 </head>
-<!-- DELETE all script tags from <head> and put this BEFORE </body> -->
+<!-- TRANSLATION OBJECT -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+const translations = {
+    en: {
+        nav_home: "Home",
+        nav_process: "Process",
+        nav_woods: "Woods",
+        nav_laminates: "Laminates",
+        nav_calculator: "Calculator",
+        nav_contact: "Contact",
+        hero_title: "Transform Your Bengaluru Home",
+        hero_subtitle: "Premium Interior Design with Teak Wood & Greenlam Laminates",
+        hero_btn: "Get Free Quote Today",
+        process_heading: "Our Premium Design Process",
+        process_step1_title: "Select Products",
+        process_step1_desc: "Choose from premium woods, laminates, and fittings based on your vision, style and budget. We guide you through 50+ material options.",
+        process_step2_title: "Pasting & Cutting",
+        process_step2_desc: "Precision CNC cutting and edge banding for perfect fit. Zero measurements errors guaranteed with digital templating.",
+        process_step3_title: "3D Design Approval",
+        process_step3_desc: "Photorealistic 3D walkthroughs with material renders. Unlimited revisions until perfect vision match.",
+        process_step4_title: "Expert Fitting",
+        process_step4_desc: "5-year warranty installation by certified craftsmen. Dust-free fitting with same-day cleanup service.",
+        woods_heading: "Premium Woods (₹/sq ft)",
+        teak_title: "Teak Wood",
+        teak_price: "₹2500/sq ft",
+        sheesham_title: "Sheesham Wood",
+        sheesham_price: "₹1800/sq ft",
+        marine_title: "Marine Plywood",
+        marine_price: "₹1200/sq ft",
+        mdf_title: "MDF Board",
+        mdf_price: "₹800/sq ft",
+        laminates_heading: "Premium Laminates (₹/sq ft)",
+        greenlam_title: "Greenlam",
+        greenlam_price: "₹250/sq ft",
+        century_title: "Century Laminates",
+        century_price: "₹300/sq ft",
+        aica_title: "Aica Laminate",
+        aica_price: "₹220/sq ft",
+        bwp_title: "Boiling Waterproof",
+        bwp_price: "₹180/sq ft",
+        calc_heading: "Instant Cost Calculator",
+        calc_subtitle: "Enter your room dimensions to get accurate pricing",
+        calc_length: "📏 Length (ft)",
+        calc_width: "📐 Width (ft)",
+        calc_wood: "🌳 Wood Type",
+        calc_laminate: "🎨 Laminate Type",
+        calc_labor: "👷 Labor (₹150/sqft)",
+        calc_fitting: "🔧 Fitting Hardware (₹100/sqft)",
+        calc_design: "🎨 3D Design (₹25,000 fixed)",
+        calc_area: "📐 Area:",
+        calc_wood_cost: "🌳 Wood Cost:",
+        calc_lam_cost: "🎨 Laminate Cost:",
+        calc_total: "💰 TOTAL ESTIMATE:",
+        calc_btn: "Get Detailed Quote →",
+        contact_heading: "Let's Create Your Dream Home",
+        contact_subtitle: "Ready for your premium interior transformation? Call us for free consultation and site visit.",
+        contact_phone: "Call Anytime",
+        contact_phone_num: "+91 98765 43210",
+        contact_phone_btn: "Call Now",
+        contact_email: "Email Us",
+        contact_email_addr: "info@flyhomeinterior.com",
+        contact_email_btn: "Send Email",
+        contact_whatsapp: "WhatsApp",
+        contact_whatsapp_btn: "Chat Now",
+        contact_address: "Visit Us",
+        contact_address_text: "#123, 5th Cross, Jayanagar<br>Bengaluru, Karnataka 560011",
+        contact_address_btn: "View on Google Maps",
+        contact_call: "📱 Instant Call",
+        contact_ws: "💬 WhatsApp Quote",
+        contact_em: "📧 Email Quote",
+        footer_text: "© 2026 Fly Home Interior | Premium Interior Design Bengaluru",
+        footer_contact: "📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 📍 #123, Jayanagar, Bengaluru, Karnataka 560011",
+    },
+    kn: {
+        nav_home: "ಮನೆ",
+        nav_process: "ಪ್ರಕ್ರಿಯೆ",
+        nav_woods: "ಮರಗಳು",
+        nav_laminates: "ಲ್ಯಾಮಿನೇಟ್‌ಗಳು",
+        nav_calculator: "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+        nav_contact: "ಸಂಪರ್ಕ",
+        hero_title: "ನಿಮ್ಮ ಬೆಂಗಳೂರು ಮನೆಯನ್ನು ರೂಪಾಂತರಿಸಿ",
+        hero_subtitle: "ತೇಕ ಮರ ಮತ್ತು ಗ್ರೀನ್ಲ್ಯಾಮ್ ಲ್ಯಾಮಿನೇಟ್‌ಗಳೊಂದಿಗೆ ಪ್ರಿಮಿಯಂ ಇಂಟೀರಿಯರ್ ಡಿজೈನ್",
+        hero_btn: "ಇಂದೇ ಉಚಿತ ಅವಲೋಕನ ಪಡೆಯಿರಿ",
+        process_heading: "ನಮ್ಮ ಪ್ರಿಮಿಯಂ ಡಿಜೈನ್ ಪ್ರಕ್ರಿಯೆ",
+        process_step1_title: "ಉತ್ಪನ್ನಗಳನ್ನು ಆರಿಸಿ",
+        process_step1_desc: "ನಿಮ್ಮ ದೃಷ್ಟಿ, ಶೈಲಿ ಮತ್ತು ಬಜೆಟ್ ಆಧಾರದ ಮೇಲೆ ಪ್ರಿಮಿಯಂ ಮರಗಳು, ಲ್ಯಾಮಿನೇಟ್‌ಗಳು ಮತ್ತು ಜೋಡಿಗಳನ್ನು ಆರಿಸಿ. ನಾವು 50+ ವಸ್ತು ಆಯ್ಕೆಗಳ ಮೂಲಕ ನಿಮ್ಮನ್ನು ಮಾರ್ಗದರ್ಶನ ಮಾಡುತ್ತೇವೆ.",
+        process_step2_title: "ಅಂಟಿಸುವಿಕೆ ಮತ್ತು ಕತ್ತರಿ",
+        process_step2_desc: "ಪರಿಪೂರ್ಣ ಫಿಟ್‌ನಿಗೆ ನಿಖುನ CNC ಕತ್ತರಿ ಮತ್ತು ಎಡ್ಜ್ ಬ್ಯಾಂಡಿಂಗ್. ಡಿಜಿಟಲ್ ಮಾದರಿಕರಣದೊಂದಿಗೆ ಗ್ಯಾರಂಟೀಯುಕ್ತ ಶೂನ್ಯ ಮಾಪನ ಟೀಕೆಗಳು.",
+        process_step3_title: "3D ಡಿಜೈನ್ ಮಂಜೂರಿ",
+        process_step3_desc: "ವಸ್ತು ರೆಂಡರ್‌ಗಳೊಂದಿಗೆ ಫೋಟೋರಿಯಲಿಸ್ಟಿಕ್ 3D ವಾಕ್‌ಥ್ರೌಗ್. ಪರಿಪೂರ್ಣ ದೃಷ್ಟಿ ಮೆಲ್ಲ ಆಗುವವರೆಗೆ ಅಸೀಮಿತ ಸಂಶೋಧನೆಗಳು.",
+        process_step4_title: "ಪರಿಣತ ಫಿಟಿಂಗ್",
+        process_step4_desc: "ಪ್ರಮಾಣೀಕೃತ ಕಾರಿಗರರಿಂದ 5-ವರ್ಷದ ವಾರಂಟಿ ಸ್ಥಾಪನೆ. ಧೂಳಿ-ಮುಕ್ತ ಫಿಟಿಂಗ್ ಮತ್ತು ಅದೇ ದಿನ ಸಾಕಷ್ಟುತೆ ಸೇವೆ.",
+        woods_heading: "ಪ್ರಿಮಿಯಂ ಮರಗಳು (₹/ಚದರ ಅಡಿ)",
+        teak_title: "ತೇಕ ಮರ",
+        teak_price: "₹2500/ಚದರ ಅಡಿ",
+        sheesham_title: "ಶೀಶಮ ಮರ",
+        sheesham_price: "₹1800/ಚದರ ಅಡಿ",
+        marine_title: "ಸಮುದ್ರ ಸಂಚಲನ",
+        marine_price: "₹1200/ಚದರ ಅಡಿ",
+        mdf_title: "MDF ಬೋರ್ಡ್",
+        mdf_price: "₹800/ಚದರ ಅಡಿ",
+        laminates_heading: "ಪ್ರಿಮಿಯಂ ಲ್ಯಾಮಿನೇಟ್‌ಗಳು (₹/ಚದರ ಅಡಿ)",
+        greenlam_title: "ಗ್ರೀನ್ಲ್ಯಾಮ್",
+        greenlam_price: "₹250/ಚದರ ಅಡಿ",
+        century_title: "ಸೆಂಚುರಿ ಲ್ಯಾಮಿನೇಟ್‌ಗಳು",
+        century_price: "₹300/ಚದರ ಅಡಿ",
+        aica_title: "ಐಕಾ ಲ್ಯಾಮಿನೇಟ್",
+        aica_price: "₹220/ಚದರ ಅಡಿ",
+        bwp_title: "ಓಡುವ ಜಲರೋಧಕ",
+        bwp_price: "₹180/ಚದರ ಅಡಿ",
+        calc_heading: "ತಕ್ಷಣ ವೆಚ್ಚ ಕ್ಯಾಲ್ಕುಲೇಟರ್",
+        calc_subtitle: "ನಿಖುನ ಬೆಲೆ ಪಡೆಯಲು ನಿಮ್ಮ ಕೋಣೆ ಆಯಾಮಗಳನ್ನು ನಮೂದಿಸಿ",
+        calc_length: "📏 ಉದ್ದ (ಅಡಿ)",
+        calc_width: "📐 ಅಗಲ (ಅಡಿ)",
+        calc_wood: "🌳 ಮರ ಪ್ರಕಾರ",
+        calc_laminate: "🎨 ಲ್ಯಾಮಿನೇಟ್ ಪ್ರಕಾರ",
+        calc_labor: "👷 ಕಾರಮಾಸಿಕ (₹150/ಚದರ ಅಡಿ)",
+        calc_fitting: "🔧 ಫಿಟಿಂಗ್ ಹಾರ್ಡ್‌ವೇರ್ (₹100/ಚದರ ಅಡಿ)",
+        calc_design: "🎨 3D ಡಿಜೈನ್ (₹25,000 ಸ್ಥಿರ)",
+        calc_area: "📐 ಪ್ರದೇಶ:",
+        calc_wood_cost: "🌳 ಮರ ವೆಚ್ಚ:",
+        calc_lam_cost: "🎨 ಲ್ಯಾಮಿನೇಟ್ ವೆಚ್ಚ:",
+        calc_total: "💰 ಒಟ್ಟು ಅಂದಾಜು:",
+        calc_btn: "ವಿವರವಾದ ಅವಲೋಕನ ಪಡೆಯಿರಿ →",
+        contact_heading: "ನಿಮ್ಮ ಸ್ವಪ್ನದ ಮನೆ ರಚಿಸೋಣ",
+        contact_subtitle: "ನಿಮ್ಮ ಪ್ರಿಮಿಯಂ ಆಂತರಿಕ ರೂಪಾಂತರಕ್ಕೆ ಸಿದ್ಧವೇ? ಉಚಿತ ಸಲಹೆ ಮತ್ತು ಸೈಟ್ ಭೇಟಿಗಾಗಿ ನಮ್ಮನ್ನು ಕರೆ ಮಾಡಿ.",
+        contact_phone: "ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಕರೆ ಮಾಡಿ",
+        contact_phone_num: "+91 98765 43210",
+        contact_phone_btn: "ಈಗ ಕರೆ ಮಾಡಿ",
+        contact_email: "ನಮ್ಮನ್ನು ಇಮೇಲ್ ಮಾಡಿ",
+        contact_email_addr: "info@flyhomeinterior.com",
+        contact_email_btn: "ಇಮೇಲ್ ಕಳುಹಿಸಿ",
+        contact_whatsapp: "ವಾಟ್ಸಪ್",
+        contact_whatsapp_btn: "ಈಗ ಚ್ಯಾಟ್ ಮಾಡಿ",
+        contact_address: "ನಮ್ಮನ್ನು ಭೇಟಿ ಮಾಡಿ",
+        contact_address_text: "#123, 5ನೇ ಕ್ರಾಸ್, ಜಯನಗರ<br>ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 560011",
+        contact_address_btn: "Google ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ",
+        contact_call: "📱 ತಕ್ಷಣ ಕರೆ",
+        contact_ws: "💬 ವಾಟ್ಸಪ್ ಅವಲೋಕನ",
+        contact_em: "📧 ಇಮೇಲ್ ಅವಲೋಕನ",
+        footer_text: "© 2026 ಫ್ಲೈ ಹೋಮ್ ಇಂಟೀರಿಯರ್ | ಪ್ರಿಮಿಯಂ ಇಂಟೀರಿಯರ್ ಡಿಜೈನ್ ಬೆಂಗಳೂರು",
+        footer_contact: "📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 📍 #123, ಜಯನಗರ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 560011",
+    },
+    te: {
+        nav_home: "హోమ్",
+        nav_process: "ప్రక్రియ",
+        nav_woods: "కలప",
+        nav_laminates: "లామినేట్లు",
+        nav_calculator: "కాలిక్యులేటర్",
+        nav_contact: "సంపర్కం",
+        hero_title: "మీ బెంగళూరు ఇంటిని రూపాంతరించండి",
+        hero_subtitle: "టీక్ కలప మరియు గ్రీన్‌లామ్ లామినేట్లతో ప్రీమియం ఇంటీరియర్ డిజైన్",
+        hero_btn: "ఈ రోజు ఉచిత కోటు పొందండి",
+        process_heading: "మా ప్రీమియం డిజైన్ ప్రక్రియ",
+        process_step1_title: "ఉత్పాదాలను ఎంచుకోండి",
+        process_step1_desc: "మీ దృష్టి, శైలీ మరియు బడ్జెట్ ఆధారంగా ప్రీమియం కలపలు, లామినేట్‌లు మరియు ఫిట్టింగ్‌లను ఎంచుకోండి. మేము 50+ మెటీరియల్ ఎంపికల ద్వారా మిమ్మల్ని గైడ్ చేస్తాము.",
+        process_step2_title: "పేస్టింగ్ & కటింగ్",
+        process_step2_desc: "ఖచ్చితమైన ఫిట్‌కు ఖచ్చితమైన CNC కటింగ్ మరియు ఎడ్జ్ బ్యాండింగ్. డిజిటల్ టెంప్లేటింగ్‌తో సున్నితమైన కొలత లోపాలు గ్యారంటీ.",
+        process_step3_title: "3D డిజైన్ ఆమోదం",
+        process_step3_desc: "మెటీరియల్ రెండర్‌ల సహ ఫోటోరియలిస్టిక్ 3D వాకథ్రూలు. ఖచ్చితమైన దృష్టి సరిపోయే వరకు అపరిమిత సవరణలు.",
+        process_step4_title: "నిపుణ ఫిట్టింగ్",
+        process_step4_desc: "ధృవీకృత కारిగరులచే 5-సంవత్సర వారెంటీ ఇన్‌స్టలేషన్. ధూళిరహిత ఫిట్టింగ్ సేవ మరియు అదే రోజు స청్నపై సేవ.",
+        woods_heading: "ప్రీమియం కలపలు (₹/చదరపు అడుగు)",
+        teak_title: "టీక్ కలప",
+        teak_price: "₹2500/చదరపు అడుగు",
+        sheesham_title: "శీషం కలప",
+        sheesham_price: "₹1800/చదరపు అడుగు",
+        marine_title: "సముద్ర ఫలకం",
+        marine_price: "₹1200/చదరపు అడుగు",
+        mdf_title: "MDF బోర్డ్",
+        mdf_price: "₹800/చదరపు అడుగు",
+        laminates_heading: "ప్రీమియం లామినేట్లు (₹/చదరపు అడుగు)",
+        greenlam_title: "గ్రీన్‌లామ్",
+        greenlam_price: "₹250/చదరపు అడుగు",
+        century_title: "సెంచరీ లామినేట్‌లు",
+        century_price: "₹300/చదరపు అడుగు",
+        aica_title: "ఐకా లామినేట్",
+        aica_price: "₹220/చదరపు అడుగు",
+        bwp_title: "ఉడికే జలనిరోధక",
+        bwp_price: "₹180/చదరపు అడుగు",
+        calc_heading: "తక్షణ ఖర్చు కాలిక్యులేటర్",
+        calc_subtitle: "ఖచ్చితమైన ధరను పొందడానికి మీ గది కొలతలను నమోదు చేయండి",
+        calc_length: "📏 పొడవు (ఫీట్)",
+        calc_width: "📐 వెడల్పు (ఫీట్)",
+        calc_wood: "🌳 కలప రకం",
+        calc_laminate: "🎨 లామినేట్ రకం",
+        calc_labor: "👷 శ్రమ (₹150/చదరపు అడుగు)",
+        calc_fitting: "🔧 ఫిట్టింగ్ హార్డ్‌వేర్ (₹100/చదరపు అడుగు)",
+        calc_design: "🎨 3D డిజైన్ (₹25,000 స్థిరమైన)",
+        calc_area: "📐 ప్రాంతం:",
+        calc_wood_cost: "🌳 కలప ఖర్చు:",
+        calc_lam_cost: "🎨 లామినేట్ ఖర్చు:",
+        calc_total: "💰 మొత్తం అంచనా:",
+        calc_btn: "వివరణాత్మక కోటు పొందండి →",
+        contact_heading: "మీ కలల ఇంటిని సృష్టించుకోండి",
+        contact_subtitle: "మీ ప్రీమియం ఇంటీరియర్ పరిణామం కోసం సిద్ధమైనారా? ఉచిత సలహా మరియు సైట్ సందర్శన కోసం మమ్మల్ని పిలవండి.",
+        contact_phone: "ఏ సమయంలోనైనా పిలవండి",
+        contact_phone_num: "+91 98765 43210",
+        contact_phone_btn: "ఇప్పుడు పిలవండి",
+        contact_email: "మాకు ఈమెయిల్ చేయండి",
+        contact_email_addr: "info@flyhomeinterior.com",
+        contact_email_btn: "ఈమెయిల్ పంపండి",
+        contact_whatsapp: "వాట్‌సప్",
+        contact_whatsapp_btn: "ఇప్పుడు చాట్ చేయండి",
+        contact_address: "మమ్మల్ని సందర్శించండి",
+        contact_address_text: "#123, 5వ క్రాస్, జయనగర<br>బెంగళూరు, కర్నాటక 560011",
+        contact_address_btn: "గూగుల్ మ్యాప్‌లో చూడండి",
+        contact_call: "📱 తక్షణ కాల్",
+        contact_ws: "💬 వాట్‌సప్ కోట్",
+        contact_em: "📧 ఈమెయిల్ కోట్",
+        footer_text: "© 2026 ఫ్లై హోమ్ ఇంటీరియర్ | ప్రీమియం ఇంటీరియర్ డిజైన్ బెంగళూరు",
+        footer_contact: "📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 📍 #123, జయనగర, బెంగళూరు, కర్నాటక 560011",
+    }
+};
+
+let currentLanguage = localStorage.getItem('selectedLanguage') || 'en';
+
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('selectedLanguage', lang);
+    updatePageContent();
+}
+
+function t(key) {
+    return translations[currentLanguage][key] || translations['en'][key] || key;
+}
+
+// PROCESS CARDS - Bind event listeners
+function bindProcessCardButtons() {
+    // Clone buttons to remove old listeners
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+    });
     
-    // Smooth scroll + nav toggle + scroll effects
+    // Bind next buttons
+    document.querySelectorAll('.nav-btn.next').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.process-card');
+            const step = parseInt(card.dataset.step);
+            if (step < 4) {
+                card.classList.remove('active');
+                const nextCard = document.querySelector('[data-step="' + (step + 1) + '"]');
+                if (nextCard) nextCard.classList.add('active');
+            }
+            return false;
+        });
+    });
+    
+    // Bind prev buttons
+    document.querySelectorAll('.nav-btn.prev').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.process-card');
+            const step = parseInt(card.dataset.step);
+            if (step > 1) {
+                card.classList.remove('active');
+                const prevCard = document.querySelector('[data-step="' + (step - 1) + '"]');
+                if (prevCard) prevCard.classList.add('active');
+            }
+            return false;
+        });
+    });
+}
+
+// CALCULATOR - Update costs
+function doCalculate() {
+    try {
+        const len = parseFloat(document.getElementById('length').value) || 0;
+        const wid = parseFloat(document.getElementById('width').value) || 0;
+        const wPri = parseFloat(document.getElementById('woodType').value) || 0;
+        const lPri = parseFloat(document.getElementById('lamType').value) || 0;
+        const lab = document.getElementById('labor').checked ? 150 : 0;
+        const fit = document.getElementById('fitting').checked ? 100 : 0;
+        const des = document.getElementById('design').checked ? 25000 : 0;
+        
+        const area = len * wid;
+        const wCost = area * wPri;
+        const lCost = area * lPri;
+        const lbCost = area * lab;
+        const ftCost = area * fit;
+        const total = wCost + lCost + lbCost + ftCost + des;
+        
+        document.getElementById('area-result').textContent = area.toFixed(1) + ' sq ft';
+        document.getElementById('wood-result').textContent = '₹' + Math.round(wCost).toLocaleString('en-IN');
+        document.getElementById('lam-result').textContent = '₹' + Math.round(lCost).toLocaleString('en-IN');
+        document.getElementById('total-result').textContent = '₹' + Math.round(total).toLocaleString('en-IN');
+    } catch (e) {
+        console.log('Calculation error:', e);
+    }
+}
+
+function updatePageContent() {
+    // Update nav links and sections with data-key attributes
+    document.querySelectorAll('[data-key]').forEach(el => {
+        el.textContent = t(el.dataset.key);
+    });
+    
+    // Update hero section
+    document.querySelector('.hero-content h2').textContent = t('hero_title');
+    document.querySelector('.hero-content p').textContent = t('hero_subtitle');
+    document.querySelector('.cta-btn').textContent = t('hero_btn');
+    
+    // Update section headings
+    document.querySelectorAll('section h2').forEach(h2 => {
+        const text = h2.textContent.trim();
+        if (text.includes('Process')) h2.textContent = t('process_heading');
+        else if (text.includes('Woods')) h2.textContent = t('woods_heading');
+        else if (text.includes('Laminates')) h2.textContent = t('laminates_heading');
+        else if (text.includes('Calculator')) h2.textContent = t('calc_heading');
+        else if (text.includes('Dream Home')) h2.textContent = t('contact_heading');
+    });
+    
+    // Update process cards
+    const processTitles = ['process_step1_title', 'process_step2_title', 'process_step3_title', 'process_step4_title'];
+    const processDescs = ['process_step1_desc', 'process_step2_desc', 'process_step3_desc', 'process_step4_desc'];
+    document.querySelectorAll('.process-card h3').forEach((h3, i) => {
+        h3.textContent = t(processTitles[i]);
+    });
+    document.querySelectorAll('.process-card > div:last-child p').forEach((p, i) => {
+        p.textContent = t(processDescs[i]);
+    });
+    
+    // Update wood and laminate titles
+    const woodTitles = {
+        'Teak Wood': 'teak_title',
+        'Sheesham Wood': 'sheesham_title',
+        'Marine Plywood': 'marine_title',
+        'MDF Board': 'mdf_title'
+    };
+    document.querySelectorAll('.wood-overlay h3').forEach(h3 => {
+        const key = Object.values(woodTitles).find(k => t(k) === h3.textContent) || Object.keys(woodTitles).find(k => h3.textContent.includes(k));
+        if (key) h3.textContent = t(woodTitles[key] || key);
+    });
+    
+    const laminateTitles = {
+        'Greenlam': 'greenlam_title',
+        'Century Laminates': 'century_title',
+        'Aica Laminate': 'aica_title',
+        'Boiling Waterproof': 'bwp_title'
+    };
+    document.querySelectorAll('.laminate-overlay h3').forEach(h3 => {
+        const key = Object.values(laminateTitles).find(k => t(k) === h3.textContent) || Object.keys(laminateTitles).find(k => h3.textContent.includes(k));
+        if (key) h3.textContent = t(laminateTitles[key] || key);
+    });
+    
+    // Update calculator labels (use data-key attributes — avoids missing-for selectors)
+    const lblLength = document.querySelector('label[data-key="calc_length"]');
+    if (lblLength) lblLength.textContent = t('calc_length');
+    const lblWidth = document.querySelector('label[data-key="calc_width"]');
+    if (lblWidth) lblWidth.textContent = t('calc_width');
+    const lblWood = document.querySelector('label[data-key="calc_wood"]');
+    if (lblWood) lblWood.textContent = t('calc_wood');
+    const lblLam = document.querySelector('label[data-key="calc_laminate"]');
+    if (lblLam) lblLam.textContent = t('calc_laminate');
+    
+    // Update calculator checkboxes span labels only (don't recreate inputs)
+    const checkboxLabels = document.querySelectorAll('.checkbox-label');
+    
+    if (checkboxLabels[0]) {
+        const laborSpan = checkboxLabels[0].querySelector('span');
+        if (laborSpan) laborSpan.textContent = t('calc_labor');
+    }
+    if (checkboxLabels[1]) {
+        const fittingSpan = checkboxLabels[1].querySelector('span');
+        if (fittingSpan) fittingSpan.textContent = t('calc_fitting');
+    }
+    if (checkboxLabels[2]) {
+        const designSpan = checkboxLabels[2].querySelector('span');
+        if (designSpan) designSpan.textContent = t('calc_design');
+    }
+    
+    // Update calculator result labels by data-key
+    const areaLabel = document.querySelector('[data-key="calc_area"]');
+    if (areaLabel) areaLabel.textContent = t('calc_area');
+    const woodCostLabel = document.querySelector('[data-key="calc_wood_cost"]');
+    if (woodCostLabel) woodCostLabel.textContent = t('calc_wood_cost');
+    const lamCostLabel = document.querySelector('[data-key="calc_lam_cost"]');
+    if (lamCostLabel) lamCostLabel.textContent = t('calc_lam_cost');
+    const totalLabel = document.querySelector('[data-key="calc_total"]');
+    if (totalLabel) totalLabel.textContent = t('calc_total');
+    
+    // Re-bind process card buttons after language change
+    setTimeout(() => bindProcessCardButtons(), 100);
+    
+    // Update contact section
+    const contactHeading = document.querySelector('.contact-header h2');
+    if (contactHeading) contactHeading.textContent = t('contact_heading');
+    
+    const contactSubtitle = document.querySelector('.contact-header p');
+    if (contactSubtitle) contactSubtitle.textContent = t('contact_subtitle');
+    
+    // Update contact cards
+    document.querySelectorAll('.contact-card h3').forEach((h3, i) => {
+        const titles = [t('contact_phone'), t('contact_email'), t('contact_whatsapp'), t('contact_address')];
+        h3.textContent = titles[i] || h3.textContent;
+    });
+    
+    // Update footer
+    const footerPs = document.querySelectorAll('footer p');
+    if (footerPs[0]) footerPs[0].textContent = t('footer_text');
+    if (footerPs[1]) footerPs[1].textContent = t('footer_contact');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Set language selector
+    document.getElementById('languageSelector').value = currentLanguage;
+    updatePageContent();
+    
+    // Smooth scroll for nav links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            const nav = document.querySelector('.nav-links');
-            if (nav.classList.contains('active')) nav.classList.remove('active');
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                const nav = document.querySelector('.nav-links');
+                if (nav && nav.classList.contains('active')) nav.classList.remove('active');
+            }
         });
     });
 
-    window.toggleNav = () => document.querySelector('.nav-links').classList.toggle('active');
+    // Hamburger menu toggle
+    window.toggleNav = function() {
+        const nav = document.querySelector('.nav-links');
+        if (nav) nav.classList.toggle('active');
+    };
 
     // Header scroll effect
-    window.addEventListener('scroll', () => {
-        document.querySelector('.topbar').classList.toggle('scrolled', window.scrollY > 50);
+    window.addEventListener('scroll', function() {
+        const topbar = document.querySelector('.topbar');
+        if (topbar) topbar.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // PROCESS CARDS
-    function initProcessCards() {
-        document.querySelectorAll('.nav-btn').forEach(btn => btn.replaceWith(btn.cloneNode(true)));
-        document.querySelectorAll('.nav-btn.next').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const currentCard = this.closest('.process-card');
-                const currentStep = parseInt(currentCard.dataset.step);
-                if (currentStep < 4) {
-                    currentCard.classList.remove('active');
-                    document.querySelector(`[data-step="${currentStep + 1}"]`).classList.add('active');
-                }
-            });
-        });
-        document.querySelectorAll('.nav-btn.prev').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const currentCard = this.closest('.process-card');
-                const currentStep = parseInt(currentCard.dataset.step);
-                if (currentStep > 1) {
-                    currentCard.classList.remove('active');
-                    document.querySelector(`[data-step="${currentStep - 1}"]`).classList.add('active');
-                }
-            });
-        });
-    }
-    initProcessCards();
+    // Bind process card buttons
+    bindProcessCardButtons();
 
-    // 🔥 FIXED CALCULATOR
-    function updateCalculator() {
-        const length = parseFloat(document.getElementById('length').value) || 0;
-        const width = parseFloat(document.getElementById('width').value) || 0;
-        const woodPrice = parseFloat(document.getElementById('woodType').value) || 0;
-        const lamPrice = parseFloat(document.getElementById('lamType').value) || 0;
-        const labor = document.getElementById('labor').checked ? 150 : 0;
-        const fitting = document.getElementById('fitting').checked ? 100 : 0;
-        const design = document.getElementById('design').checked ? 25000 : 0;
-        
-        const area = length * width;
-        const woodCost = area * woodPrice;
-        const lamCost = area * lamPrice;
-        const laborCost = area * labor;
-        const fittingCost = area * fitting;
-        const total = woodCost + lamCost + laborCost + fittingCost + design;
-        
-        document.getElementById('area-result').textContent = `${area.toFixed(1)} sq ft`;
-        document.getElementById('wood-result').textContent = `₹${woodCost.toLocaleString('en-IN')}`;
-        document.getElementById('lam-result').textContent = `₹${lamCost.toLocaleString('en-IN')}`;
-        document.getElementById('total-result').textContent = `₹${total.toLocaleString('en-IN')}`;
-    }
-
-    // FIXED EVENT LISTENERS
-    document.getElementById('length').addEventListener('input', updateCalculator);
-    document.getElementById('width').addEventListener('input', updateCalculator);
-    document.getElementById('woodType').addEventListener('change', updateCalculator);
-    document.getElementById('lamType').addEventListener('change', updateCalculator);
-    document.getElementById('labor').addEventListener('change', updateCalculator);
-    document.getElementById('fitting').addEventListener('change', updateCalculator);
-    document.getElementById('design').addEventListener('change', updateCalculator);
-
-    // Quote button
-    window.scrollToContact = () => document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+    // Bind calculator inputs
+    const lenEl = document.getElementById('length');
+    const widEl = document.getElementById('width');
+    const woodEl = document.getElementById('woodType');
+    const lamEl = document.getElementById('lamType');
+    const labEl = document.getElementById('labor');
+    const fitEl = document.getElementById('fitting');
+    const desEl = document.getElementById('design');
     
-    // Initialize
-    updateCalculator();
+    if (lenEl) lenEl.addEventListener('input', doCalculate);
+    if (widEl) widEl.addEventListener('input', doCalculate);
+    if (woodEl) woodEl.addEventListener('change', doCalculate);
+    if (lamEl) lamEl.addEventListener('change', doCalculate);
+    if (labEl) labEl.addEventListener('change', doCalculate);
+    if (fitEl) fitEl.addEventListener('change', doCalculate);
+    if (desEl) desEl.addEventListener('change', doCalculate);
+
+    // Scroll to contact
+    window.scrollToContact = function() {
+        const contact = document.querySelector('#contact');
+        if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+    };
+    
+    // Initial calculation
+    doCalculate();
 });
 </script>
 
@@ -537,28 +929,35 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="topbar">
         <img src="1000090199.jpg" alt="Fly Home Interior Logo" class="logo">
         <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#process">Process</a>
-            <a href="#woods">Woods</a>
-            <a href="#laminates">Laminates</a>
-            <a href="#calculator">Calculator</a>
-            <a href="#contact">Contact</a>
+            <a href="#home" data-key="nav_home">Home</a>
+            <a href="#process" data-key="nav_process">Process</a>
+            <a href="#woods" data-key="nav_woods">Woods</a>
+            <a href="#laminates" data-key="nav_laminates">Laminates</a>
+            <a href="#calculator" data-key="nav_calculator">Calculator</a>
+            <a href="#contact" data-key="nav_contact">Contact</a>
         </nav>
-        <div class="hamburger" onclick="toggleNav()">☰</div>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <select id="languageSelector" class="language-selector" onchange="changeLanguage(this.value)">
+                <option value="en">🌐 English</option>
+                <option value="kn">ಕನ್ನಡ</option>
+                <option value="te">తెలుగు</option>
+            </select>
+            <div class="hamburger" onclick="toggleNav()">☰</div>
+        </div>
     </div>
 
     <!-- ADD THIS NEW HERO SECTION (replaces old hero) -->
     <section id="home" class="hero">
         <div class="hero-content">
-            <h2>Transform Your Bengaluru Home</h2>
-            <p>Premium Interior Design with Teak Wood & Greenlam Laminates</p>
-            <a href="#contact" class="cta-btn">Get Free Quote Today</a>
+            <h2 data-key="hero_title">Transform Your Bengaluru Home</h2>
+            <p data-key="hero_subtitle">Premium Interior Design with Teak Wood & Greenlam Laminates</p>
+            <a href="#contact" class="cta-btn" data-key="hero_btn">Get Free Quote Today</a>
         </div>
     </section>
 
     <!-- Process -->
     <section id="process" class="section">
-        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Our Premium Design Process</h2>
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;" data-key="process_heading">Our Premium Design Process</h2>
         <div class="process-container">
             <div class="process-card active" data-step="1">
                 <div class="card-image">
@@ -566,8 +965,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="step-number">1</div>
                 </div>
                 <div class="card-content">
-                    <h3>Select Products</h3>
-                    <p>Choose from premium woods, laminates, and fittings based on your vision, style and budget. We guide you through 50+ material options.</p>
+                    <h3 data-key="process_step1_title">Select Products</h3>
+                    <p data-key="process_step1_desc">Choose from premium woods, laminates, and fittings based on your vision, style and budget. We guide you through 50+ material options.</p>
                     <div class="nav-buttons">
                         <button class="nav-btn prev disabled">←</button>
                         <button class="nav-btn next">Next →</button>
@@ -581,8 +980,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="step-number">2</div>
                 </div>
                 <div class="card-content">
-                    <h3>Pasting & Cutting</h3>
-                    <p>Precision CNC cutting and edge banding for perfect fit. Zero measurements errors guaranteed with digital templating.</p>
+                    <h3 data-key="process_step2_title">Pasting & Cutting</h3>
+                    <p data-key="process_step2_desc">Precision CNC cutting and edge banding for perfect fit. Zero measurements errors guaranteed with digital templating.</p>
                     <div class="nav-buttons">
                         <button class="nav-btn prev">← Prev</button>
                         <button class="nav-btn next">Next →</button>
@@ -596,8 +995,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="step-number">3</div>
                 </div>
                 <div class="card-content">
-                    <h3>3D Design Approval</h3>
-                    <p>Photorealistic 3D walkthroughs with material renders. Unlimited revisions until perfect vision match.</p>
+                    <h3 data-key="process_step3_title">3D Design Approval</h3>
+                    <p data-key="process_step3_desc">Photorealistic 3D walkthroughs with material renders. Unlimited revisions until perfect vision match.</p>
                     <div class="nav-buttons">
                         <button class="nav-btn prev">← Prev</button>
                         <button class="nav-btn next">Next →</button>
@@ -611,8 +1010,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="step-number">4</div>
                 </div>
                 <div class="card-content">
-                    <h3>Expert Fitting</h3>
-                    <p>5-year warranty installation by certified craftsmen. Dust-free fitting with same-day cleanup service.</p>
+                    <h3 data-key="process_step4_title">Expert Fitting</h3>
+                    <p data-key="process_step4_desc">5-year warranty installation by certified craftsmen. Dust-free fitting with same-day cleanup service.</p>
                     <div class="nav-buttons">
                         <button class="nav-btn prev">← Prev</button>
                         <button class="nav-btn next disabled">✓ Complete</button>
@@ -624,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Woods and Laminates -->
     <section id="woods" class="section">
-        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Premium Woods (₹/sq ft)</h2>
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;" data-key="woods_heading">Premium Woods (₹/sq ft)</h2>
         <div class="woods-grid">
             <div class="wood-card" data-details='{
                 "price": "₹2500", 
@@ -705,7 +1104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </section>
 
     <section id="laminates" class="section">
-        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Premium Laminates (₹/sq ft)</h2>
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;" data-key="laminates_heading">Premium Laminates (₹/sq ft)</h2>
         <div class="laminates-grid">
             <div class="laminate-card" data-details='{
                 "price": "₹250", 
@@ -787,24 +1186,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Cost Calculator -->
     <section id="calculator" class="section">
-        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 1rem; font-size: 2.5rem;">Instant Cost Calculator</h2>
-        <p style="text-align: center; color: #666; font-size: 1.2rem; margin-bottom: 3rem;">Enter your room dimensions to get accurate pricing</p>
+        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 1rem; font-size: 2.5rem;" data-key="calc_heading">Instant Cost Calculator</h2>
+        <p style="text-align: center; color: #666; font-size: 1.2rem; margin-bottom: 3rem;" data-key="calc_subtitle">Enter your room dimensions to get accurate pricing</p>
         
         <div class="calculator-container">
             <div class="calc-grid">
                 <!-- Area Inputs -->
                 <div class="input-group">
-                    <label>📏 Length (ft)</label>
+                    <label data-key="calc_length">📏 Length (ft)</label>
                     <input type="number" id="length" class="calc-input" min="0" step="0.1" value="10">
                 </div>
                 <div class="input-group">
-                    <label>📐 Width (ft)</label>
+                    <label data-key="calc_width">📐 Width (ft)</label>
                     <input type="number" id="width" class="calc-input" min="0" step="0.1" value="12">
                 </div>
                 
                 <!-- Material Selection -->
                 <div class="input-group full-width">
-                    <label>🌳 Wood Type</label>
+                    <label data-key="calc_wood">🌳 Wood Type</label>
                     <select id="woodType" class="calc-select">
                         <option value="2500">Teak Wood - ₹2500/sqft</option>
                         <option value="1800" selected>Sheesham - ₹1800/sqft</option>
@@ -813,7 +1212,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </select>
                 </div>
                 <div class="input-group full-width">
-                    <label>🎨 Laminate Type</label>
+                    <label data-key="calc_laminate">🎨 Laminate Type</label>
                     <select id="lamType" class="calc-select">
                         <option value="250">Greenlam - ₹250/sqft</option>
                         <option value="300">Century - ₹300/sqft</option>
@@ -825,35 +1224,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 <!-- Additional Options -->
                 <div class="input-group checkbox-group">
                     <label class="checkbox-label">
-                        <input type="checkbox" id="labor" checked> 👷 Labor (₹150/sqft)
+                        <input type="checkbox" id="labor" checked> <span data-key="calc_labor">👷 Labor (₹150/sqft)</span>
                     </label>
                     <label class="checkbox-label">
-                        <input type="checkbox" id="fitting"> 🔧 Fitting Hardware (₹100/sqft)
+                        <input type="checkbox" id="fitting"> <span data-key="calc_fitting">🔧 Fitting Hardware (₹100/sqft)</span>
                     </label>
                     <label class="checkbox-label">
-                        <input type="checkbox" id="design"> 🎨 3D Design (₹25,000 fixed)
+                        <input type="checkbox" id="design"> <span data-key="calc_design">🎨 3D Design (₹25,000 fixed)</span>
                     </label>
                 </div>
             </div>
             
             <div class="calc-results">
                 <div class="result-item">
-                    <span>📐 Area:</span>
+                    <span data-key="calc_area">📐 Area:</span>
                     <span id="area-result">0 sq ft</span>
                 </div>
                 <div class="result-item">
-                    <span>🌳 Wood Cost:</span>
+                    <span data-key="calc_wood_cost">🌳 Wood Cost:</span>
                     <span id="wood-result">₹0</span>
                 </div>
                 <div class="result-item">
-                    <span>🎨 Laminate Cost:</span>
+                    <span data-key="calc_lam_cost">🎨 Laminate Cost:</span>
                     <span id="lam-result">₹0</span>
                 </div>
                 <div class="result-item total">
-                    <span>💰 TOTAL ESTIMATE:</span>
+                    <span data-key="calc_total">💰 TOTAL ESTIMATE:</span>
                     <span id="total-result">₹0</span>
                 </div>
-                <button class="get-quote-btn" onclick="scrollToContact()">Get Detailed Quote →</button>
+                <button class="get-quote-btn" onclick="scrollToContact()" data-key="calc_btn">Get Detailed Quote →</button>
             </div>
         </div>
     </section>
@@ -861,8 +1260,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <section id="contact" class="section contact-section">
         <div class="contact-container">
             <div class="contact-header">
-                <h2 style="color: #1E3A8A; font-size: 2.8rem; margin-bottom: 1rem;">Let's Create Your Dream Home</h2>
-                <p style="font-size: 1.3rem; color: #666; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                <h2 style="color: #1E3A8A; font-size: 2.8rem; margin-bottom: 1rem;" data-key="contact_heading">Let's Create Your Dream Home</h2>
+                <p style="font-size: 1.3rem; color: #666; max-width: 600px; margin: 0 auto; line-height: 1.6;" data-key="contact_subtitle">
                     Ready for your premium interior transformation? Call us for free consultation and site visit.
                 </p>
             </div>
@@ -872,9 +1271,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="contact-card phone-card">
                     <div class="contact-icon">📞</div>
                     <div class="contact-details">
-                        <h3>Call Anytime</h3>
+                        <h3 data-key="contact_phone">Call Anytime</h3>
                         <p>+91 98765 43210</p>
-                        <a href="tel:+919876543210" class="contact-btn">Call Now</a>
+                        <a href="tel:+919876543210" class="contact-btn" data-key="contact_phone_btn">Call Now</a>
                     </div>
                 </div>
 
@@ -882,9 +1281,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="contact-card email-card">
                     <div class="contact-icon">✉️</div>
                     <div class="contact-details">
-                        <h3>Email Us</h3>
+                        <h3 data-key="contact_email">Email Us</h3>
                         <p>info@flyhomeinterior.com</p>
-                        <a href="mailto:info@flyhomeinterior.com" class="contact-btn">Send Email</a>
+                        <a href="mailto:info@flyhomeinterior.com" class="contact-btn" data-key="contact_email_btn">Send Email</a>
                     </div>
                 </div>
 
@@ -892,9 +1291,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="contact-card whatsapp-card">
                     <div class="contact-icon">💬</div>
                     <div class="contact-details">
-                        <h3>WhatsApp</h3>
+                        <h3 data-key="contact_whatsapp">WhatsApp</h3>
                         <p>+91 98765 43210</p>
-                        <a href="https://wa.me/919876543210" target="_blank" class="contact-btn whatsapp-btn">Chat Now</a>
+                        <a href="https://wa.me/919876543210" target="_blank" class="contact-btn whatsapp-btn" data-key="contact_whatsapp_btn">Chat Now</a>
                     </div>
                 </div>
 
@@ -902,9 +1301,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="contact-card address-card">
                     <div class="contact-icon">📍</div>
                     <div class="contact-details">
-                        <h3>Visit Us</h3>
-                        <p>#123, 5th Cross, Jayanagar<br>Bengaluru, Karnataka 560011</p>
-                        <a href="https://maps.app.goo.gl/your-map-link" target="_blank" class="contact-btn map-btn">View on Google Maps</a>
+                        <h3 data-key="contact_address">Visit Us</h3>
+                        <p data-key="contact_address_text">#123, 5th Cross, Jayanagar<br>Bengaluru, Karnataka 560011</p>
+                        <a href="https://maps.app.goo.gl/your-map-link" target="_blank" class="contact-btn map-btn" data-key="contact_address_btn">View on Google Maps</a>
                     </div>
                 </div>
             </div>
@@ -920,19 +1319,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
             <!-- Quick Links -->
             <div class="quick-links">
-                <a href="tel:+919876543210" class="quick-link">📱 Instant Call</a>
-                <a href="https://wa.me/919876543210" class="quick-link whatsapp-quick">💬 WhatsApp Quote</a>
-                <a href="mailto:info@flyhomeinterior.com" class="quick-link">📧 Email Quote</a>
+                <a href="tel:+919876543210" class="quick-link" data-key="contact_call">📱 Instant Call</a>
+                <a href="https://wa.me/919876543210" class="quick-link whatsapp-quick" data-key="contact_ws">💬 WhatsApp Quote</a>
+                <a href="mailto:info@flyhomeinterior.com" class="quick-link" data-key="contact_em">📧 Email Quote</a>
             </div>
         </div>
     </section>
 
     <footer style="background: linear-gradient(135deg, #1E3A8A, #4CAF50); color: white; text-align: center; padding: 3rem 20px;">
         <div style="max-width: 1200px; margin: 0 auto;">
-            <p style="margin: 0 0 1rem 0; font-size: 1.1rem;">
+            <p style="margin: 0 0 1rem 0; font-size: 1.1rem;" data-key="footer_text">
                 © 2026 Fly Home Interior | Premium Interior Design Bengaluru
             </p>
-            <p style="margin: 0; opacity: 0.9;">
+            <p style="margin: 0; opacity: 0.9;" data-key="footer_contact">
                 📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 
                 📍 #123, Jayanagar, Bengaluru, Karnataka 560011
             </p>
