@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fly Home Interior - Interior Design Bengaluru</title>
+    <title>Fly Home Interior</title>
     <style>
         /* ENHANCED TRANSPARENT TOPBAR */
         .topbar {
@@ -68,12 +68,12 @@
             position: relative; z-index: 2;
         }
         .hero-content h2 { 
-            font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; 
-            margin: 0 0 1.5rem 0; opacity: 0; animation: popInUp 0.8s ease-out 0.3s forwards;
+            font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; 
+            margin: 0 0 1.2rem 0; opacity: 0; animation: popInUp 0.8s ease-out 0.3s forwards;
             background: linear-gradient(135deg, #f1f2f3, #f7f7f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .hero-content p { 
-            font-size: clamp(1.2rem, 3.5vw, 1.8rem); margin: 0 0 3rem 0; 
+            font-size: clamp(1rem, 3vw, 1.4rem); margin: 0 0 2.5rem 0; 
             opacity: 0; animation: popInUp 0.8s ease-out 0.6s forwards; font-weight: 300;
             color: #fffdfd;
         }
@@ -183,128 +183,6 @@
         }
 
 
-        /* wood and laminate tables */
-        .woods-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 20px;
-        }
-        .wood-card {
-            position: relative; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.4s ease;
-            background: white;
-        }
-        .wood-card:hover {
-            transform: translateY(-15px); box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-        }
-        .wood-image {
-            position: relative; height: 350px; overflow: hidden; cursor: pointer;
-        }
-        .wood-image img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
-        }
-        .wood-card:hover .wood-image img {
-            transform: scale(1.1);
-        }
-        .wood-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(30,58,138,0.9), rgba(76,175,80,0.8));
-            color: white; padding: 2rem; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            opacity: 0; transition: opacity 0.4s ease; transform: translateY(20px);
-        }
-        .wood-card:hover .wood-overlay {
-            opacity: 1; transform: translateY(0);
-        }
-        .wood-overlay h3 {
-            font-size: 2rem; font-weight: 700; margin: 0 0 1rem 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .price-tag {
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
-            padding: 0.8rem 1.5rem; border-radius: 50px; font-size: 1.3rem;
-            font-weight: 700; margin-bottom: 1.5rem; border: 2px solid rgba(255,255,255,0.3);
-        }
-        .features {
-            list-style: none; padding: 0; margin: 0; font-size: 1.1rem;
-        }
-        .features li {
-            margin: 0.3rem 0; opacity: 0; transform: translateX(-20px);
-            animation: slideIn 0.6s ease forwards;
-        }
-        .wood-card:hover .features li:nth-child(1) { animation-delay: 0.1s; }
-        .wood-card:hover .features li:nth-child(2) { animation-delay: 0.2s; }
-        .wood-card:hover .features li:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @media (max-width: 768px) {
-            .woods-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .wood-image { height: 280px; }
-            .wood-overlay h3 { font-size: 1.5rem; }
-        }
-
-        .laminates-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 0 20px;
-        }
-        .laminate-card {
-            position: relative; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.4s ease;
-            background: white;
-        }
-        .laminate-card:hover {
-            transform: translateY(-15px); box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-        }
-        .laminate-image {
-            position: relative; height: 350px; overflow: hidden; cursor: pointer;
-        }
-        .laminate-image img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
-        }
-        .laminate-card:hover .laminate-image img {
-            transform: scale(1.1);
-        }
-        .laminate-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(30,58,138,0.9), rgba(76,175,80,0.8));
-            color: white; padding: 2rem; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            opacity: 0; transition: opacity 0.4s ease; transform: translateY(20px);
-        }
-        .laminate-card:hover .laminate-overlay {
-            opacity: 1; transform: translateY(0);
-        }
-        .laminate-overlay h3 {
-            font-size: 2rem; font-weight: 700; margin: 0 0 1rem 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .price-tag {
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
-            padding: 0.8rem 1.5rem; border-radius: 50px; font-size: 1.3rem;
-            font-weight: 700; margin-bottom: 1.5rem; border: 2px solid rgba(255,255,255,0.3);
-        }
-        .laminate-overlay .features {
-            list-style: none; padding: 0; margin: 0; font-size: 1.1rem;
-        }
-        .laminate-overlay .features li {
-            margin: 0.3rem 0; opacity: 0; transform: translateX(-20px);
-            animation: slideIn 0.6s ease forwards;
-        }
-        .laminate-card:hover .laminate-overlay .features li:nth-child(1) { animation-delay: 0.1s; }
-        .laminate-card:hover .laminate-overlay .features li:nth-child(2) { animation-delay: 0.2s; }
-        .laminate-card:hover .laminate-overlay .features li:nth-child(3) { animation-delay: 0.3s; }
-
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @media (max-width: 768px) {
-            .laminates-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            .laminate-image { height: 280px; }
-            .laminate-overlay h3 { font-size: 1.5rem; }
-        }
 
         /* Calculator */
         .calculator-container {
@@ -455,6 +333,132 @@
         }
 
 
+        /* GALLERY SLIDER SECTION */
+        .gallery-section { padding: 60px 20px; background: #fff; }
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+        }
+        .gallery-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .gallery-item {
+            flex: 0 0 300px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            scroll-snap-align: start;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover { transform: translateY(-5px); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .section-title { 
+            color: #1E3A8A; font-size: 2.2rem; text-align: center; 
+            margin-bottom: 10px; font-weight: 700; 
+        }
+
+        /* --- UPDATED RESPONSIVE STYLES --- */
+
+        /* 1. DESKTOP VIEW (Screens wider than 768px) */
+        @media (min-width: 769px) {
+            .calc-grid {
+                display: grid;
+                grid-template-columns: 1.2fr 0.8fr; /* Inputs on left, Results on right */
+                gap: 30px;
+                padding: 3rem;
+            }
+            .contact-info-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* 2x2 grid for contact cards */
+                gap: 25px;
+            }
+            .contact-card {
+                display: flex;
+                align-items: center;
+                text-align: left;
+                gap: 20px;
+            }
+        }
+
+        /* 2. MOBILE VIEW (Screens 768px and smaller) */
+        @media (max-width: 768px) {
+            /* Container Padding */
+            .calculator-container, .contact-container {
+                padding: 20px 15px !important;
+            }
+
+            /* Shrink the large headers and text */
+            .contact-header h2 {
+                font-size: 1.7rem !important; /* Shrinks the 2.8rem heading */
+                margin-bottom: 0.5rem !important;
+            }
+            .contact-header p {
+                font-size: 1rem !important; /* Shrinks the 1.3rem subtitle */
+                line-height: 1.4 !important;
+            }
+
+            /* Calculator Mobile Fix */
+            .calc-grid {
+                grid-template-columns: 1fr !important; /* Stack vertically */
+                padding: 1.5rem !important;
+                gap: 15px;
+            }
+            .calc-input, .calc-select {
+                font-size: 1rem !important;
+                padding: 0.8rem !important;
+            }
+            .result-item { font-size: 1rem !important; }
+            #total-result { font-size: 1.5rem !important; }
+
+            /* Contact Cards Mobile Fix */
+            .contact-info-grid {
+                grid-template-columns: 1fr !important; /* Stack cards vertically */
+                gap: 12px !important;
+                margin: 20px 0 !important;
+            }
+            .contact-card {
+                padding: 15px !important;
+                display: flex;
+                flex-direction: row; /* Keeps icon next to text */
+                align-items: center;
+                text-align: left;
+                gap: 15px;
+            }
+            .contact-icon {
+                font-size: 1.8rem !important; /* Shrink large icons */
+                margin-bottom: 0 !important;
+            }
+            .contact-details h3 {
+                font-size: 1.1rem !important;
+                margin-bottom: 2px !important;
+            }
+            .contact-details p {
+                font-size: 0.9rem !important;
+                margin-bottom: 8px !important;
+            }
+            .contact-btn {
+                padding: 8px 15px !important;
+                font-size: 0.85rem !important;
+            }
+
+            /* Map and Links Fix */
+            .map-container { margin: 20px 0 !important; }
+            .map-container iframe {
+                height: 250px !important; /* Make map shorter on mobile */
+            }
+            .quick-links {
+                flex-direction: column !important; /* Stack call/whatsapp buttons */
+                gap: 10px !important;
+            }
+            .quick-link {
+                width: 100% !important;
+                text-align: center;
+                padding: 12px !important;
+            }
+        }
     </style>
 </head>
 <!-- TRANSLATION OBJECT -->
@@ -463,12 +467,12 @@ const translations = {
     en: {
         nav_home: "Home",
         nav_process: "Process",
-        nav_woods: "Woods",
+        nav_woods: "Gallery",
         nav_laminates: "Laminates",
         nav_calculator: "Calculator",
         nav_contact: "Contact",
-        hero_title: "Transform Your Bengaluru Home",
-        hero_subtitle: "Premium Interior Design with Teak Wood & Greenlam Laminates",
+        hero_title: "Make your home dream stunning with Fly.",
+        hero_subtitle: "Everyone dreams of a beautiful home—make it even more stunning with Fly Home Interiors. Premium designs crafted with top-quality plywood and laminates",
         hero_btn: "Get Free Quote Today",
         process_heading: "Our Premium Design Process",
         process_step1_title: "Select Products",
@@ -529,16 +533,19 @@ const translations = {
         contact_em: "📧 Email Quote",
         footer_text: "© 2026 Fly Home Interior | Premium Interior Design Bengaluru",
         footer_contact: "📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 📍 #123, Jayanagar, Bengaluru, Karnataka 560011",
+        gal_kitchen: "Kitchen",
+        gal_bedroom: "Bedroom",
+        gal_living: "Living Room",
     },
     kn: {
         nav_home: "ಮನೆ",
         nav_process: "ಪ್ರಕ್ರಿಯೆ",
-        nav_woods: "ಮರಗಳು",
+        nav_woods: "ಗ್ಯಾಲರಿ",
         nav_laminates: "ಲ್ಯಾಮಿನೇಟ್‌ಗಳು",
         nav_calculator: "ಕ್ಯಾಲ್ಕುಲೇಟರ್",
         nav_contact: "ಸಂಪರ್ಕ",
-        hero_title: "ನಿಮ್ಮ ಬೆಂಗಳೂರು ಮನೆಯನ್ನು ರೂಪಾಂತರಿಸಿ",
-        hero_subtitle: "ತೇಕ ಮರ ಮತ್ತು ಗ್ರೀನ್ಲ್ಯಾಮ್ ಲ್ಯಾಮಿನೇಟ್‌ಗಳೊಂದಿಗೆ ಪ್ರಿಮಿಯಂ ಇಂಟೀರಿಯರ್ ಡಿজೈನ್",
+        hero_title: "ನಿಮ್ಮ ಮನೆ ಕನಸನ್ನು ಫ್ಲೈ ಜೊತೆಗೆ ಚಮತ್ಕಾರವಾಗಿ ಮಾಡಿ.",
+        hero_subtitle: "ಎಲ್ಲರಿಗೂ ಸುಂದರ ಮನೆ ಕನಸು ಇದೆ—ಫ್ಲೈ ಹೋಮ್ ಇಂಟೀರಿಯರ್ಸ್‌ನೊಂದಿಗೆ ಅದನ್ನು ಇನ್ನಷ್ಟು ಚಮತ್ಕಾರವಾಗಿ ಮಾಡಿ. ಪ್ರೀಮಿಯಂ ಪ್ಲೈವುಡ್ ಮತ್ತು ಲ್ಯಾಮಿನೇಟ್‌ನೊಂದಿಗೆ ಪ್ರೀಮಿಯಂ ಇಂಟೀರಿಯರ್ ಡಿಸೈನ್.",
         hero_btn: "ಇಂದೇ ಉಚಿತ ಅವಲೋಕನ ಪಡೆಯಿರಿ",
         process_heading: "ನಮ್ಮ ಪ್ರಿಮಿಯಂ ಡಿಜೈನ್ ಪ್ರಕ್ರಿಯೆ",
         process_step1_title: "ಉತ್ಪನ್ನಗಳನ್ನು ಆರಿಸಿ",
@@ -599,16 +606,19 @@ const translations = {
         contact_em: "📧 ಇಮೇಲ್ ಅವಲೋಕನ",
         footer_text: "© 2026 ಫ್ಲೈ ಹೋಮ್ ಇಂಟೀರಿಯರ್ | ಪ್ರಿಮಿಯಂ ಇಂಟೀರಿಯರ್ ಡಿಜೈನ್ ಬೆಂಗಳೂರು",
         footer_contact: "📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 📍 #123, ಜಯನಗರ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 560011",
+        gal_kitchen: "ಅಡುಗೆ ಮನೆ",
+        gal_bedroom: "ಮಲಗುವ ಕೋಣೆ",
+        gal_living: "ವಾಸದ ಕೋಣೆ",
     },
     te: {
         nav_home: "హోమ్",
         nav_process: "ప్రక్రియ",
-        nav_woods: "కలప",
+        nav_woods: "గ్యాలరీ",
         nav_laminates: "లామినేట్లు",
         nav_calculator: "కాలిక్యులేటర్",
         nav_contact: "సంపర్కం",
-        hero_title: "మీ బెంగళూరు ఇంటిని రూపాంతరించండి",
-        hero_subtitle: "టీక్ కలప మరియు గ్రీన్‌లామ్ లామినేట్లతో ప్రీమియం ఇంటీరియర్ డిజైన్",
+        hero_title: "మీ ఇల్లు కలను ఫ్లైతో అద్భుతంగా చేయండి.",
+        hero_subtitle: "ఎవరికీ అందమైన ఇల్లు కల ఉంది—ఫ్లై హోమ్ ఇంటీరియర్స్‌తో దాన్ని మరింత అద్భుతంగా చేయండి. ప్రీమియం ప్లైవుడ్ & లామినేట్‌తో ప్రీమియం ఇంటీరియర్ డిజైన్.",
         hero_btn: "ఈ రోజు ఉచిత కోటు పొందండి",
         process_heading: "మా ప్రీమియం డిజైన్ ప్రక్రియ",
         process_step1_title: "ఉత్పాదాలను ఎంచుకోండి",
@@ -669,6 +679,9 @@ const translations = {
         contact_em: "📧 ఈమెయిల్ కోట్",
         footer_text: "© 2026 ఫ్లై హోమ్ ఇంటీరియర్ | ప్రీమియం ఇంటీరియర్ డిజైన్ బెంగళూరు",
         footer_contact: "📞 +91 98765 43210 | ✉️ info@flyhomeinterior.com | 📍 #123, జయనగర, బెంగళూరు, కర్నాటక 560011",
+        gal_kitchen: "వంటగది",
+        gal_bedroom: "పడకగది",
+        gal_living: "లివింగ్ రూమ్",
     }
 };
 
@@ -765,8 +778,6 @@ function updatePageContent() {
     document.querySelectorAll('section h2').forEach(h2 => {
         const text = h2.textContent.trim();
         if (text.includes('Process')) h2.textContent = t('process_heading');
-        else if (text.includes('Woods')) h2.textContent = t('woods_heading');
-        else if (text.includes('Laminates')) h2.textContent = t('laminates_heading');
         else if (text.includes('Calculator')) h2.textContent = t('calc_heading');
         else if (text.includes('Dream Home')) h2.textContent = t('contact_heading');
     });
@@ -927,12 +938,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
     <!-- ADD THIS NEW TOPBAR (replaces old header + nav) -->
     <div class="topbar">
-        <img src="1000090199.jpg" alt="Fly Home Interior Logo" class="logo">
+        <img src="logo.jpeg" alt="Fly Home Interior Logo" class="logo">
         <nav class="nav-links">
             <a href="#home" data-key="nav_home">Home</a>
             <a href="#process" data-key="nav_process">Process</a>
-            <a href="#woods" data-key="nav_woods">Woods</a>
-            <a href="#laminates" data-key="nav_laminates">Laminates</a>
+            <a href="#woods" data-key="nav_woods">Gallery</a>
             <a href="#calculator" data-key="nav_calculator">Calculator</a>
             <a href="#contact" data-key="nav_contact">Contact</a>
         </nav>
@@ -1021,165 +1031,31 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </section>
 
-    <!-- Woods and Laminates -->
-    <section id="woods" class="section">
-        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;" data-key="woods_heading">Premium Woods (₹/sq ft)</h2>
-        <div class="woods-grid">
-            <div class="wood-card" data-details='{
-                "price": "₹2500", 
-                "features": "Durable • Premium Finish • Termite Proof",
-                "best_for": "Kitchens, Living Rooms, Luxury Projects"
-            }'>
-                <div class="wood-image">
-                    <img src="w1.jpg" alt="Teak Wood" loading="lazy">
-                    <div class="wood-overlay">
-                        <h3>Teak Wood</h3>
-                        <div class="price-tag">₹2500/sq ft</div>
-                        <ul class="features">
-                            <li>• King of woods</li>
-                            <li>• Golden brown</li>
-                            <li>• 50+ years life</li>
-                        </ul>
-                    </div>
-                </div>
+
+    <!-- Gallery -->
+    <section class="gallery-section" id="gallery">
+        <div class="contact-container">
+            <h2 class="section-title" data-key="gal_kitchen">Kitchen</h2>
+            <div class="gallery-container">
+                <div class="gallery-item"><img src="kitchen1.jpeg" alt="Kitchen 1"></div>
+                <div class="gallery-item"><img src="kitchen2.jpeg" alt="Kitchen 2"></div>
+                <div class="gallery-item"><img src="kitchen3.jpeg" alt="Kitchen 3"></div>
+                <div class="gallery-item"><img src="kitchen4.jpeg" alt="Kitchen 4"></div>
             </div>
 
-            <div class="wood-card" data-details='{
-                "price": "₹1800", 
-                "features": "Rich Texture • Strong • Natural Polish",
-                "best_for": "Bedrooms, Dining, Traditional Homes"
-            }'>
-                <div class="wood-image">
-                    <img src="w2.jpg" alt="Sheesham Wood" loading="lazy">
-                    <div class="wood-overlay">
-                        <h3>Sheesham Wood</h3>
-                        <div class="price-tag">₹1800/sq ft</div>
-                        <ul class="features">
-                            <li>• Indian Rosewood</li>
-                            <li>• Dark grain pattern</li>
-                            <li>• 30+ years life</li>
-                        </ul>
-                    </div>
-                </div>
+            <h2 class="section-title" data-key="gal_bedroom" style="margin-top: 50px;">Bedroom</h2>
+            <div class="gallery-container">
+                <div class="gallery-item"><img src="bedroom1.jpeg" alt="Bedroom 1"></div>
+                <div class="gallery-item"><img src="bedroom2.jpeg" alt="Bedroom 2"></div>
+                <div class="gallery-item"><img src="bedroom3.jpeg" alt="Bedroom 3"></div>
+                <div class="gallery-item"><img src="bedroom4.jpeg" alt="Bedroom 4"></div>
             </div>
 
-            <div class="wood-card" data-details='{
-                "price": "₹1200", 
-                "features": "Water Resistant • Strong • Budget Friendly",
-                "best_for": "Bathrooms, Kitchens, Humid Areas"
-            }'>
-                <div class="wood-image">
-                    <img src="w1.jpg" alt="Marine Plywood" loading="lazy">
-                    <div class="wood-overlay">
-                        <h3>Marine Plywood</h3>
-                        <div class="price-tag">₹1200/sq ft</div>
-                        <ul class="features">
-                            <li>• Boiling waterproof</li>
-                            <li>• High density</li>
-                            <li>• IS:710 certified</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="wood-card" data-details='{
-                "price": "₹800", 
-                "features": "Smooth Finish • Affordable • Easy to Work",
-                "best_for": "Wardrobes, Modern Minimalist"
-            }'>
-                <div class="wood-image">
-                    <img src="w2.jpg" alt="MDF Board" loading="lazy">
-                    <div class="wood-overlay">
-                        <h3>MDF Board</h3>
-                        <div class="price-tag">₹800/sq ft</div>
-                        <ul class="features">
-                            <li>• Perfectly smooth</li>
-                            <li>• No grain marks</li>
-                            <li>• Paint friendly</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="laminates" class="section">
-        <h2 style="color: #1E3A8A; text-align: center; margin-bottom: 3rem; font-size: 2.5rem;" data-key="laminates_heading">Premium Laminates (₹/sq ft)</h2>
-        <div class="laminates-grid">
-            <div class="laminate-card" data-details='{
-                "price": "₹250", 
-                "features": "Anti-scratch • Eco-friendly • UV Resistant",
-                "best_for": "Kitchens, Bathrooms, High Traffic Areas"
-            }'>
-                <div class="laminate-image">
-                    <img src="l1.jpg" alt="Greenlam Laminate" loading="lazy">
-                    <div class="laminate-overlay">
-                        <h3>Greenlam</h3>
-                        <div class="price-tag">₹250/sq ft</div>
-                        <ul class="features">
-                            <li>• Anti-bacterial</li>
-                            <li>• Scratch resistant</li>
-                            <li>• 10-year warranty</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="laminate-card" data-details='{
-                "price": "₹300", 
-                "features": "High Gloss • Premium • Fire Resistant",
-                "best_for": "Living Rooms, Showrooms, Luxury Homes"
-            }'>
-                <div class="laminate-image">
-                    <img src="l2.jpg" alt="Century Laminates" loading="lazy">
-                    <div class="laminate-overlay">
-                        <h3>Century Laminates</h3>
-                        <div class="price-tag">₹300/sq ft</div>
-                        <ul class="features">
-                            <li>• Mirror finish</li>
-                            <li>• High gloss</li>
-                            <li>• Premium brand</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="laminate-card" data-details='{
-                "price": "₹220", 
-                "features": "Matte Finish • Durable • Heat Resistant",
-                "best_for": "Bedrooms, Wardrobes, Modern Homes"
-            }'>
-                <div class="laminate-image">
-                    <img src="l1.jpg" alt="Aica Laminate" loading="lazy">
-                    <div class="laminate-overlay">
-                        <h3>Aica Laminate</h3>
-                        <div class="price-tag">₹220/sq ft</div>
-                        <ul class="features">
-                            <li>• Japanese quality</li>
-                            <li>• Matte texture</li>
-                            <li>• Heat resistant</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="laminate-card" data-details='{
-                "price": "₹180", 
-                "features": "Boiling Waterproof • Budget • Reliable",
-                "best_for": "Kitchens, Bathrooms, Budget Projects"
-            }'>
-                <div class="laminate-image">
-                    <img src="l2.jpg" alt="Boiling Waterproof" loading="lazy">
-                    <div class="laminate-overlay">
-                        <h3>Boiling Waterproof</h3>
-                        <div class="price-tag">₹180/sq ft</div>
-                        <ul class="features">
-                            <li>• BWP grade</li>
-                            <li>• Moisture proof</li>
-                            <li>• Budget friendly</li>
-                        </ul>
-                    </div>
-                </div>
+            <h2 class="section-title" data-key="gal_living" style="margin-top: 50px;">Living Room</h2>
+            <div class="gallery-container">
+                <div class="gallery-item"><img src="livinghall1.jpeg" alt="Living 1"></div>
+                <div class="gallery-item"><img src="livinghall2.jpeg" alt="Living 2"></div>
+                <div class="gallery-item"><img src="livinghall3.jpeg" alt="Living 3"></div>
             </div>
         </div>
     </section>
@@ -1338,16 +1214,5 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </footer>
 
-    <script>
-        function calculate() {
-            const length = parseFloat(document.getElementById('length').value) || 0;
-            const width = parseFloat(document.getElementById('width').value) || 0;
-            const woodPrice = parseFloat(document.getElementById('woodPrice').value) || 0;
-            const lamPrice = parseFloat(document.getElementById('lamPrice').value) || 0;
-            const area = length * width;
-            const total = (area * woodPrice) + (area * lamPrice);
-            document.getElementById('calc-result').innerHTML = `Area: ${area.toFixed(2)} sq ft | Approx Cost: ₹${total.toFixed(0)} (excl. labor)`;
-        }
-    </script>
 </body>
 </html>
